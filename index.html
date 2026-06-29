@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para la niña más hermosa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.2);
+            max-width: 500px;
+            width: 100%;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        /* Contenedor del Gato (Usando CSS puro/Emojis grandes para asegurar que cargue al instante) */
+        .cat-container {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .flowers {
+            font-size: 40px;
+            position: absolute;
+            bottom: -10px;
+            right: -20px;
+        }
+
+        h1 {
+            color: #ff477e;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #4a4a4a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #ff477e;
+            font-weight: bold;
+        }
+
+        .btn-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #btn-yes {
+            background-color: #ff477e;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+        }
+
+        #btn-yes:hover {
+            transform: scale(1.1);
+            background-color: #ff5c8a;
+        }
+
+        #btn-no {
+            background-color: #a3b18a;
+            color: white;
+            position: absolute;
+            transition: all 0.1s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Corazones flotantes */
+        .heart {
+            position: absolute;
+            color: #ff477e;
+            font-size: 24px;
+            pointer-events: none;
+            animation: fly 3s linear forwards;
+            z-index: 1;
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="cat-container" id="cat-art">
+            🐱<span class="flowers">💐</span>
+        </div>
+        
+        <h1 id="title">¿Te quedarías conmigo toda la vida?</h1>
+        
+        <p id="message">
+            Desde que estás en mi vida, todo es más brillante. Eres la persona más <span class="highlight">hermosa</span> de este mundo, y no hay nada que desee más que <span class="highlight">ver tus ojos cada amanecer</span> por el resto de mis días. 
+        </p>
+
+        <div class="btn-container">
+            <button id="btn-yes">¡SÍ! ❤️</button>
+            <button id="btn-no" style="left: 60%;">No</button>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
+        const catArt = document.getElementById('cat-art');
+        const title = document.getElementById('title');
+        const message = document.getElementById('message');
+
+        // Función para mover el botón NO de forma escurridiza
+        function moverBotonNo() {
+            // Calculamos posiciones aleatorias dentro de la pantalla visible
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+            
+            // Forzamos la posición fija para que se mueva por toda la pantalla libremente
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
+        }
+
+        // Se activa al pasar el mouse o al tocar en pantallas móviles
+        btnNo.addEventListener('mouseenter', moverBotonNo);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Evita el clic accidental en móvil
+            moverBotonNo();
+        });
+
+        // Acción cuando dice que SÍ
+        btnYes.addEventListener('click', () => {
+            // Cambiar el diseño a modo "Super Feliz"
+            catArt.innerHTML = "😸<span class='flowers'>💝✨</span>";
+            catArt.style.animation = "float 0.5s ease-in-out infinite alternate"; // Animación más rápida de alegría
+            
+            title.innerHTML = "¡SABÍA QUE DIRÍAS QUE SÍ! 💖";
+            message.innerHTML = "Me haces el hombre más feliz del universo. Prometo cuidar tu sonrisa y adorar tus ojos cada mañana. ¡Te amo! 👩‍❤️‍👨";
+            
+            // Desparecer el botón NO y centrar el SÍ
+            btnNo.style.display = 'none';
+            btnYes.style.transform = 'scale(1.2)';
+            btnYes.disabled = true; // Desactivar para que disfrute el momento
+            
+            // Lanzar la lluvia de corazones
+            setInterval(crearCorazon, 150);
+        });
+
+        // Función para generar corazones en la pantalla
+        function crearCorazon() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Varias formas de corazones
+            const iconos = ['❤️', '💖', '💝', '💕', '✨'];
+            heart.innerText = iconos[Math.floor(Math.random() * iconos.length)];
+            
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 2 + "s"; // Entre 2 y 4 segundos
+            
+            document.body.appendChild(heart);
+            
+            // Borrar el corazón después de que termine la animación para no saturar la memoria
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
